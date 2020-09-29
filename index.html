@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<script>
+
+  console.log("Let's play rock, paper, scissors! Best of 3 out of 5! Ready......GO!!!!");
+  game();
+
+  function game() {
+    // Set scores to zero
+    let playerScore = 0;
+    let computerScore = 0;
+    // While either score is less than three
+    while (playerScore < 3 && computerScore < 3) {
+    // Get player's selection
+      const playerSelection = getPlayerSelection();
+    // Get computer's selection
+      const computerSelection = computerPlay();
+    // Compare player to computer selection and determine winner
+    // Assign 1 point to winner's score
+      winner = playRound(playerSelection, computerSelection);
+    // Add score of 1 to winner and display current score
+      switch (winner) {
+        case "computer":
+          computerScore++;
+          console.log(`Score is player: ${ playerScore } to computer: ${ computerScore }`)
+          break;
+        case "player":
+          playerScore++;
+          console.log(`Score is player: ${ playerScore } to computer: ${ computerScore }`)
+          break;
+        default:
+          break;
+      }
+    // Loop through play
+    }
+    // If score is equal to three, declare winner
+    if (playerScore == 3) {
+      console.log('Congrats! You Win!')
+    }
+    else if (computerScore == 3) {
+      console.log ('Sorry, you lose. Better luck next time.')
+    }
+  }
+
+  // Generates random rock, paper, or scissors for computer opponent
+  function computerPlay() {
+    let choices = ["Rock", "Paper", "Scissors"];
+    return choices[Math.floor(Math.random()*choices.length)];
+  }
+
+  // Asks player for rock, paper, or scissors and returns selection (case insensitive)
+  function getPlayerSelection() {
+    let isValid = false;
+    while (isValid == false) {
+      let playerSelection = prompt("Enter your play. Rock, Paper, or Scissors?");
+      // Checks for valid entry
+      if ((playerSelection.toLowerCase() == "rock") ||
+          (playerSelection.toLowerCase() == "paper") ||
+          (playerSelection.toLowerCase() == "scissors")) {
+        isValid = true;
+        return playerSelection
+      }
+      // Error message
+      else {
+        console.log('Invalid answer! What are you trying to pull here?');
+      }
+    }
+  }
+
+  // Accepts player and computer selections, compares values, and returns winner
+  function playRound(playerSelection, computerSelection) {
+    let winner='';
+    // Capitalize player selection for display purposes
+    let playerSelectionCap = playerSelection[0].toUpperCase() +
+        playerSelection.slice(1).toLowerCase();
+    if (playerSelectionCap == computerSelection) {
+      console.log("Draw. Try again.");
+      return winner = "draw";
+    }
+    else if ((playerSelectionCap=="Rock" && computerSelection=="Paper") ||
+        (playerSelectionCap=="Paper" && computerSelection=="Scissors") ||
+        (playerSelectionCap=="Scissors" && computerSelection=="Rock")) {
+      console.log(`You lose this! ${ computerSelection } beats ${ playerSelectionCap }`);
+      return winner = "computer";
+    }
+    else if ((playerSelectionCap=="Rock" && computerSelection=="Scissors") ||
+        (playerSelectionCap=="Paper" && computerSelection=="Rock") ||
+        (playerSelectionCap=="Scissors" && computerSelection=="Paper")) {
+      console.log(`You win! ${ playerSelectionCap } beats ${ computerSelection }`)
+      return winner = "player";
+    }
+    else {
+      return "Something went wrong...";
+    }
+  }
+
+</script>
+</html>
